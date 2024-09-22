@@ -85,32 +85,33 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 19, 19, 19),
       appBar: AppBar(
+          toolbarHeight: 50,
           backgroundColor: Color.fromARGB(255, 17, 17, 17),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Image.asset(
                 'assets/Images/Icons/YouTube.png',
-                width: 100,
+                width: 90,
               ),
               Container(
-                width: 140,
+                width: 125,
                 height: 40,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Image.asset(
                       'assets/Images/Icons/Chromecast.png',
-                      width: 28,
+                      width: 25,
                     ),
                     Icon(
                       Icons.notifications_none_sharp,
-                      size: 28,
+                      size: 25,
                       color: Colors.white,
                     ),
                     Icon(
                       Icons.search_sharp,
-                      size: 28,
+                      size: 25,
                       color: Colors.white,
                     )
                   ],
@@ -121,8 +122,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: [
           Container(
+            margin: EdgeInsets.only(bottom: 4),
             width: double.infinity,
-            height: 60,
+            height: 45,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -131,13 +133,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       margin: EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 52, 52, 52),
+                          color: Color.fromARGB(255, 37, 37, 37),
                           borderRadius: BorderRadius.circular(8)),
                       child: Padding(
                         padding: EdgeInsets.all(8),
                         child: Text(
                           data,
-                          style: TextStyle(color: Colors.white, fontSize: 15),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                     )
@@ -166,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 width: double.infinity,
                               ),
                               Positioned(
-                                bottom: 13,
+                                bottom: 6,
                                 right: 4,
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -179,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       Video[1],
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 16,
+                                          fontSize: 11,
                                           fontWeight: FontWeight.w600),
                                     ),
                                   ),
@@ -195,16 +200,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(16.0),
+                                    borderRadius: BorderRadius.circular(100.0),
                                     child: Image.asset(
                                       'assets/Images/Profiles/' + Video[2],
                                       fit: BoxFit.contain,
-                                      height: 40,
-                                      width: 40,
+                                      height: 35,
+                                      width: 35,
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 10,
+                                    width: 15,
                                   ),
                                   Expanded(
                                       child: Container(
@@ -219,7 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 2,
                                           style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: 15,
                                               height: 1.2,
                                               fontWeight: FontWeight.w500,
                                               color: Colors.white),
@@ -228,17 +233,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 2,
                                             style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
                                                 color: Color.fromARGB(
-                                                    255, 224, 224, 224)))
+                                                    255, 220, 220, 220)))
                                       ],
                                     ),
                                   )),
                                   Icon(
                                     Icons.more_vert_sharp,
                                     color: Color.fromARGB(255, 224, 224, 224),
-                                    size: 30,
+                                    size: 20,
                                   ),
                                 ],
                               ),
@@ -254,71 +258,71 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             // color: Colors.red,
             width: double.infinity,
-            height: 60,
+            height: 50,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
                   height: double.infinity,
-                  width: 70,
+                  width: 65,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                         Icons.home_filled,
                         color: Colors.white,
-                        size: 38,
+                        size: 24,
                       ),
                       Text(
                         "Home",
-                        style: TextStyle(color: Colors.white, fontSize: 11),
+                        style: TextStyle(color: Colors.white, fontSize: 10),
                       )
                     ],
                   ),
                 ),
                 Container(
                   height: double.infinity,
-                  width: 70,
+                  width: 65,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
                         'assets/Images/Icons/Shorts.png',
-                        width: 35,
+                        width: 24,
                       ),
                       Text(
                         "Shorts",
-                        style: TextStyle(color: Colors.white, fontSize: 11),
+                        style: TextStyle(color: Colors.white, fontSize: 10),
                       )
                     ],
                   ),
                 ),
                 Container(
                   height: double.infinity,
-                  width: 70,
+                  width: 65,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
                         'assets/Images/Icons/Add.png',
-                        width: 45,
+                        width: 38,
                       ),
                     ],
                   ),
                 ),
                 Container(
                   height: double.infinity,
-                  width: 70,
+                  width: 65,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
                         'assets/Images/Icons/Subscription-out.png',
-                        width: 35,
+                        width: 24,
                       ),
                       Text(
                         "Subscription",
-                        style: TextStyle(color: Colors.white, fontSize: 11),
+                        style: TextStyle(color: Colors.white, fontSize: 10),
                       )
                     ],
                   ),
@@ -332,11 +336,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       Icon(
                         Icons.account_circle_rounded,
                         color: Colors.white,
-                        size: 38,
+                        size: 24,
                       ),
                       Text(
                         "You",
-                        style: TextStyle(color: Colors.white, fontSize: 11),
+                        style: TextStyle(color: Colors.white, fontSize: 10),
                       )
                     ],
                   ),
