@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 final List<String> HomeMainrecommonded = [
   "Marvel Studios",
@@ -82,6 +84,65 @@ final List<List<String>> SubMainChannels = [
   ['ParamountPictures.jpg', "Paramount Pictures"],
 ];
 List<List<String>> MainChannels = List.from(SubMainChannels)..shuffle(Random());
+List<List<String>> MainUrls = [
+  [
+    "https://youtube.com/shorts/GQkkHtBD1BM?si=ShZA7t8MnC8hzWJi",
+    "777K",
+    "4,996",
+    "MKBHD.jpg",
+    "mkbhd",
+    "Taking 1000 Steps  In Every Smartwatch!"
+  ],
+  [
+    "https://youtube.com/shorts/frUGYJvJnZk?si=w-yAi7SUitS0hrze",
+    "2M",
+    "3,903",
+    "Mrwhosetheboss.jpg",
+    "Mrwhosetheboss",
+    "LOUDEST Whistle In The World"
+  ],
+  [
+    "https://youtube.com/shorts/io8xRpadUoU?si=g7JdDLis7kZOgCp5",
+    "960K",
+    "13K",
+    "NileRed.jpg",
+    "NileRed",
+    "Using luminol to make a glowing waterfall"
+  ],
+  [
+    "https://youtube.com/shorts/BLoPP4bcSTU?si=2uWmhod4BaDKO3M7",
+    "735K",
+    "3,144",
+    "Zackdfilms.jpg",
+    "zackdfilms",
+    "The Great Escape 😨 (explained)"
+  ],
+  [
+    "https://youtube.com/shorts/il5rtkILn6w?si=rj9W3uvgfE91NUyZ",
+    "35K",
+    "529",
+    "CosmicUnveiler.jpg",
+    "Cosmic_Unveiler",
+    "Michio Kaku's Quantum Computer Experiment Changed Everything!"
+  ],
+  [
+    "https://youtube.com/shorts/7GfPcj2D-Ek?si=d2ZKd-58NfISV9D1",
+    "475K",
+    "2,727",
+    "CleoAbram.jpg",
+    "CleoAbram",
+    "What’s Really Inside the Earth?"
+  ],
+  [
+    "https://youtube.com/shorts/noInRltAsXo?si=HJFXypQVU0F-td0G",
+    "593K",
+    "1,292",
+    "BlenderGuru.jpg",
+    "blenderguru",
+    "The 'Color burn technique'. Improve your texturing in Blender #b3d"
+  ],
+];
+List<List<String>> Urls = List.from(MainUrls)..shuffle(Random());
 
 void main() {
   runApp(const MyApp());
@@ -112,16 +173,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      precacheImage(AssetImage('assets/Images/Icons/Home0.png'), context);
-      precacheImage(AssetImage('assets/Images/Icons/Home1.png'), context);
-      precacheImage(AssetImage('assets/Images/Icons/Shorts0.png'), context);
-      precacheImage(AssetImage('assets/Images/Icons/Shorts1.png'), context);
-      precacheImage(
-          AssetImage('assets/Images/Icons/Subscription-out0.png'), context);
-      precacheImage(
-          AssetImage('assets/Images/Icons/Subscription-out1.png'), context);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   precacheImage(AssetImage('assets/Images/Icons/Home0.png'), context);
+    //   precacheImage(AssetImage('assets/Images/Icons/Home1.png'), context);
+    //   precacheImage(AssetImage('assets/Images/Icons/Shorts0.png'), context);
+    //   precacheImage(AssetImage('assets/Images/Icons/Shorts1.png'), context);
+    //   precacheImage(
+    //       AssetImage('assets/Images/Icons/Subscription-out0.png'), context);
+    //   precacheImage(
+    //       AssetImage('assets/Images/Icons/Subscription-out1.png'), context);
+    // });
   }
 
   int ImageChangeSpeed = 150;
@@ -209,10 +270,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: child,
                             );
                           },
-                          child: Image.asset(
+                          child: SvgPicture.asset(
                             (PageActive[0] == 0)
-                                ? 'assets/Images/Icons/Home0.png'
-                                : 'assets/Images/Icons/Home1.png',
+                                ? 'assets/Images/Icons/Home0.svg'
+                                : 'assets/Images/Icons/Home1.svg',
                             width: 24,
                             key: ValueKey<int>(PageActive[0]),
                           ),
@@ -251,10 +312,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: child,
                             );
                           },
-                          child: Image.asset(
+                          child: SvgPicture.asset(
                             (PageActive[1] == 0)
-                                ? 'assets/Images/Icons/Shorts0.png'
-                                : 'assets/Images/Icons/Shorts1.png',
+                                ? 'assets/Images/Icons/Shorts0.svg'
+                                : 'assets/Images/Icons/Shorts1.svg',
                             width: 24,
                             key: ValueKey<int>(PageActive[1]),
                           ),
@@ -273,8 +334,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        'assets/Images/Icons/Add.png',
+                      SvgPicture.asset(
+                        'assets/Images/Icons/Add.svg',
                         width: 38,
                       ),
                     ],
@@ -306,10 +367,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: child,
                             );
                           },
-                          child: Image.asset(
+                          child: SvgPicture.asset(
                             (PageActive[2] == 0)
-                                ? 'assets/Images/Icons/Subscription-out0.png'
-                                : 'assets/Images/Icons/Subscription-out1.png',
+                                ? 'assets/Images/Icons/Subscription-out0.svg'
+                                : 'assets/Images/Icons/Subscription-out1.svg',
                             width: 24,
                             key: ValueKey<int>(PageActive[2]),
                           ),
@@ -554,18 +615,14 @@ Widget LoadHome() {
 
 Widget LoadShorts(context) {
   return Expanded(
-    child: PageView(
-      scrollDirection: Axis.vertical,
-      children: [
-        Container(
-          color: Colors.green,
-          height: MediaQuery.of(context).size.height,
-          width: double.infinity,
-          child: Stack(
-            children: [Text("KKK"), Text("data")],
-          ),
-        ),
-      ],
+    child: PageView.builder(
+      scrollDirection: Axis.vertical, // Vertical scroll
+      itemCount: Urls.length,
+      itemBuilder: (context, index) {
+        return ReelItem(
+          videoUrl: Urls[index],
+        );
+      },
     ),
   );
 }
@@ -910,5 +967,280 @@ String dateClculation(String targetDateString) {
         : '${diff.inMinutes} minutes ago';
   } else {
     return 'just now';
+  }
+}
+
+class ReelItem extends StatefulWidget {
+  final List<String> videoUrl;
+
+  ReelItem({required this.videoUrl});
+
+  @override
+  _ReelItemState createState() => _ReelItemState();
+}
+
+class _ReelItemState extends State<ReelItem> {
+  late YoutubePlayerController _controller;
+  double currentProgress = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = YoutubePlayerController(
+      initialVideoId: YoutubePlayer.convertUrlToId(widget.videoUrl[0])!,
+      flags: YoutubePlayerFlags(
+        autoPlay: true,
+        mute: false,
+        loop: true,
+      ),
+    );
+
+    _controller.addListener(() {
+      final position = _controller.value.position;
+      final duration = _controller.metadata.duration;
+
+      if (_controller.value.isPlaying) {
+        if (position.inSeconds + 0.9 >= duration.inSeconds - 0.1 &&
+            duration.inSeconds != 0) {
+          _controller.seekTo(Duration.zero);
+        }
+        if (duration != null && duration.inSeconds > 0) {
+          setState(() {
+            currentProgress =
+                position.inSeconds.toDouble() / duration.inSeconds.toDouble();
+          });
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  bool isPlaying = false;
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black,
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height,
+      child: YoutubePlayerBuilder(
+        player: YoutubePlayer(
+          controller: _controller,
+          showVideoProgressIndicator: false,
+        ),
+        builder: (context, player) {
+          return Stack(
+            children: [
+              Positioned.fill(child: player),
+              Positioned.fill(
+                  child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if (isPlaying) {
+                      _controller.pause();
+                    } else {
+                      _controller.play();
+                    }
+                    isPlaying = !isPlaying;
+                  });
+                },
+                child: Container(
+                  color: Colors.transparent,
+                ),
+              )),
+              Positioned(
+                bottom: 0,
+                right: -25,
+                left: -25,
+                child: Container(
+                  height: 6,
+                  child: SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      thumbShape:
+                          RoundSliderThumbShape(enabledThumbRadius: 3.0),
+                      trackHeight: 2.0,
+                    ),
+                    child: Slider(
+                      value: currentProgress.isNaN ? 0 : currentProgress,
+                      onChanged: (value) {
+                        setState(() {
+                          currentProgress = value;
+                          final duration = _controller.metadata.duration;
+                          if (duration != null) {
+                            final newPosition =
+                                duration.inSeconds * currentProgress;
+                            _controller
+                                .seekTo(Duration(seconds: newPosition.toInt()));
+                          }
+                        });
+                      },
+                      min: 0.0,
+                      max: 1.0,
+                      activeColor: const Color.fromARGB(130, 244, 67, 54),
+                      inactiveColor: const Color.fromARGB(132, 158, 158, 158),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                  bottom: 20,
+                  right: 10,
+                  child: Container(
+                    width: 50,
+                    height: 390,
+                    // color: Colors.red,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Icon(
+                                Icons.thumb_up,
+                                size: 28,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                widget.videoUrl[1],
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Icon(
+                                Icons.thumb_down,
+                                size: 28,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                "Dislike",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Icon(
+                                Icons.comment,
+                                size: 28,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                widget.videoUrl[2],
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/Images/Icons/share.svg',
+                                width: 28,
+                              ),
+                              Text(
+                                "Share",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/Images/Icons/remix.svg',
+                                width: 28,
+                              ),
+                              Text(
+                                "Remix",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                              )
+                            ],
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.asset(
+                              'assets/Images/Profiles/' + widget.videoUrl[3],
+                              fit: BoxFit.contain,
+                              height: 35,
+                              width: 35,
+                            ),
+                          ),
+                        ]),
+                  )),
+              Positioned(
+                bottom: 20,
+                left: 20,
+                child: Container(
+                  height: 100,
+                  width: 270,
+                  // color: Colors.red,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        child: Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(100.0),
+                              child: Image.asset(
+                                'assets/Images/Profiles/' + widget.videoUrl[3],
+                                fit: BoxFit.contain,
+                                height: 35,
+                                width: 35,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "@" + widget.videoUrl[4],
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                widget.videoUrl[5],
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  height: 1.2,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          );
+        },
+      ),
+    );
   }
 }
