@@ -1,5 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+final List<String> HomeMainrecommonded = [
+  "Marvel Studios",
+  "Science Fiction",
+  "Gaming",
+  "Trailers",
+  "Music",
+  "Rendering",
+  "Anime",
+  "Science",
+  "Visual"
+];
+final List<List<String>> HomeMainVideos = [
+  [
+    'KarikkuJam1.jpg',
+    "14:08",
+    'Karikku.jpg',
+    "JAM | Part 2 | Karikku | Comedy",
+    "Karikku · 3.4 views · ",
+    "20 Sep 2024",
+    ""
+  ],
+  [
+    'AnimationVsPhysics.jpg',
+    "16:07",
+    'AlanBecker.jpg',
+    "Animation vs. Physics",
+    "Alan Becker · 28M views · ",
+    "9 Dec 2023",
+    ""
+  ],
+  [
+    'AvengersInfinityWarTrailer.jpg',
+    "2:25",
+    'Marvel.jpg',
+    "Marvel Studios' Avengers: Infinity War Official Trailer",
+    "Marvel Entertainment · 264M views · ",
+    "29 Nov 2017",
+    ""
+  ],
+  [
+    'TransformersOne.jpg',
+    "1:29",
+    'ParamountPictures.jpg',
+    "Transformers One | Final Trailer (2024) - Chris Hemsworth, Brian Tyree Henry, Scarlett Johansson",
+    "Paramount Pictures · 2.6M views · ",
+    "17 Sep 2024",
+    ""
+  ],
+  [
+    'HeyNilaNila.jpg',
+    "6:00",
+    'Muzik247.jpg',
+    "Hey Nila Nila | Sithara Krishnakumar | Vinayak Sasikumar |Sanjay Sukumaran | Naveen S Nair| Madhav S",
+    "Muzik247 · 544K views · ",
+    "25 Nov 2021",
+    ""
+  ],
+  [
+    'KarikkuThanks.jpg',
+    "32:25",
+    'Karikku.jpg',
+    "THENKS! | Part 1 | Karikku | Comedy",
+    "Karikku · 13M views · ",
+    "21 May 2023",
+    ""
+  ]
+];
+List<List<String>> HomeVideos = List.from(HomeMainVideos)..shuffle(Random());
+List<String> Homerecommonded = List.from(HomeMainrecommonded)
+  ..shuffle(Random());
+final List<List<String>> SubMainChannels = [
+  ['MarkRober.jpg', "Mark Rober"],
+  ['AlanBecker.jpg', "Alan Becker"],
+  ['Marvel.jpg', "Marvel Entertainment"],
+  ['Karikku.jpg', "Karikku"],
+  ['Muzik247.jpg', "Muzik247"],
+  ['ParamountPictures.jpg', "Paramount Pictures"],
+];
+List<List<String>> MainChannels = List.from(SubMainChannels)..shuffle(Random());
 
 void main() {
   runApp(const MyApp());
@@ -53,27 +135,33 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset(
-                'assets/Images/Icons/YouTube.png',
-                width: 90,
-              ),
+              (Mode != 2)
+                  ? Image.asset(
+                      'assets/Images/Icons/YouTube.png',
+                      width: 90,
+                    )
+                  : Container(),
               Container(
-                width: 125,
+                width: (Mode != 2) ? 125 : 92,
                 height: 40,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset(
-                      'assets/Images/Icons/Chromecast.png',
-                      width: 25,
-                    ),
+                    (Mode != 2)
+                        ? Image.asset(
+                            'assets/Images/Icons/Chromecast.png',
+                            width: 25,
+                          )
+                        : Container(),
                     Icon(
-                      Icons.notifications_none_sharp,
+                      (Mode != 2)
+                          ? Icons.notifications_none_sharp
+                          : Icons.search_sharp,
                       size: 25,
                       color: Colors.white,
                     ),
                     Icon(
-                      Icons.search_sharp,
+                      (Mode != 2) ? Icons.search_sharp : Icons.more_vert_sharp,
                       size: 25,
                       color: Colors.white,
                     )
@@ -85,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          PageController(Mode),
+          PageController(Mode, context),
           Container(
             // color: Colors.red,
             width: double.infinity,
@@ -107,6 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: Container(
                     height: double.infinity,
+                    color: Colors.transparent,
                     width: 65,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -136,19 +225,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                Container(
-                  height: double.infinity,
-                  width: 65,
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        Mode = 2;
-                        for (int i = 0; i < 4; i++) {
-                          PageActive[i] = 0;
-                        }
-                        PageActive[1] = 1;
-                      });
-                    },
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      Mode = 2;
+                      for (int i = 0; i < 4; i++) {
+                        PageActive[i] = 0;
+                      }
+                      PageActive[1] = 1;
+                    });
+                  },
+                  child: Container(
+                    height: double.infinity,
+                    color: Colors.transparent,
+                    width: 65,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -190,19 +280,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
-                Container(
-                  height: double.infinity,
-                  width: 65,
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        Mode = 3;
-                        for (int i = 0; i < 4; i++) {
-                          PageActive[i] = 0;
-                        }
-                        PageActive[2] = 1;
-                      });
-                    },
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      Mode = 3;
+                      for (int i = 0; i < 4; i++) {
+                        PageActive[i] = 0;
+                      }
+                      PageActive[2] = 1;
+                    });
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    height: double.infinity,
+                    width: 65,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -231,19 +322,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                Container(
-                  height: double.infinity,
-                  width: 65,
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        Mode = 4;
-                        for (int i = 0; i < 4; i++) {
-                          PageActive[i] = 0;
-                        }
-                        PageActive[3] = 1;
-                      });
-                    },
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      Mode = 4;
+                      for (int i = 0; i < 4; i++) {
+                        PageActive[i] = 0;
+                      }
+                      PageActive[3] = 1;
+                    });
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    height: double.infinity,
+                    width: 65,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -282,12 +374,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget PageController(Mode) {
+Widget PageController(Mode, context) {
   switch (Mode) {
     case 1:
       return LoadHome();
     case 2:
-      return LoadShorts();
+      return LoadShorts(context);
     case 3:
       return LoadSubs();
     case 4:
@@ -298,70 +390,11 @@ Widget PageController(Mode) {
 }
 
 Widget LoadHome() {
-  final List<String> recommonded = [
-    "All",
-    "Marvel Studios",
-    "Science Fiction",
-    "Gaming",
-    "Trailers",
-    "Music",
-    "Rendering",
-    "Anime",
-    "Science",
-    "Visual"
-  ];
-  final List<List<String>> Videos = [
-    [
-      'KarikkuJam1.jpg',
-      "14:08",
-      'Karikku.jpg',
-      "JAM | Part 2 | Karikku | Comedy",
-      "Karikku · 3.4 views · ",
-      "20 Sep 2024"
-    ],
-    [
-      'AnimationVsPhysics.jpg',
-      "16:07",
-      'AlanBecker.jpg',
-      "Animation vs. Physics",
-      "Alan Becker · 28M views · ",
-      "9 Dec 2023"
-    ],
-    [
-      'AvengersInfinityWarTrailer.jpg',
-      "2:25",
-      'Marvel.jpg',
-      "Marvel Studios' Avengers: Infinity War Official Trailer",
-      "Marvel Entertainment · 264M views · ",
-      "29 Nov 2017"
-    ],
-    [
-      'HeyNilaNila.jpg',
-      "6:00",
-      'Muzik247.jpg',
-      "Hey Nila Nila | Sithara Krishnakumar | Vinayak Sasikumar |Sanjay Sukumaran | Naveen S Nair| Madhav S",
-      "Muzik247 · 544K views · ",
-      "25 Nov 2021"
-    ],
-    [
-      'TransformersOne.jpg',
-      "1:29",
-      'ParamountPictures.jpg',
-      "Transformers One | Final Trailer (2024) - Chris Hemsworth, Brian Tyree Henry, Scarlett Johansson",
-      "Paramount Pictures · 2.6M views · ",
-      "17 Sep 2024"
-    ],
-    [
-      'KarikkuThanks.jpg',
-      "32:25",
-      'Karikku.jpg',
-      "THENKS! | Part 1 | Karikku | Comedy",
-      "Karikku · 13M views · ",
-      "21 May 2023"
-    ]
-  ];
+  List<List<String>> Videos = HomeVideos;
+  List<String> recommonded = Homerecommonded;
+
   for (var data in Videos) {
-    data[4] += dateClculation(data[5]);
+    data[6] = dateClculation(data[5]);
   }
   return Expanded(
     child: SingleChildScrollView(
@@ -375,6 +408,22 @@ Widget LoadHome() {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
+                  Container(
+                    margin: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 37, 37, 37),
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Text(
+                        "All",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ),
                   for (var data in recommonded)
                     Container(
                       margin: EdgeInsets.all(4),
@@ -472,7 +521,7 @@ Widget LoadHome() {
                                             fontWeight: FontWeight.w500,
                                             color: Colors.white),
                                       ),
-                                      Text(Video[4],
+                                      Text(Video[4] + Video[6],
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 2,
                                           style: TextStyle(
@@ -503,32 +552,26 @@ Widget LoadHome() {
   );
 }
 
-Widget LoadShorts() {
+Widget LoadShorts(context) {
   return Expanded(
-    child: Container(
-      color: Colors.green,
-      height: 200,
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Shorts Page is underProgress",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+    child: PageView(
+      scrollDirection: Axis.vertical,
+      children: [
+        Container(
+          color: Colors.green,
+          height: MediaQuery.of(context).size.height,
+          width: double.infinity,
+          child: Stack(
+            children: [Text("KKK"), Text("data")],
           ),
-          Icon(
-            Icons.warning_amber_rounded,
-            size: 100,
-          )
-        ],
-      ),
+        ),
+      ],
     ),
   );
 }
 
 Widget LoadSubs() {
   final List<String> recommonded = [
-    "All",
     "Today",
     "Videos",
     "Shorts",
@@ -537,7 +580,7 @@ Widget LoadSubs() {
     "Continue Watching",
     "Unwatched"
   ];
-  final List<List<String>> Channels = [
+  final List<List<String>> SubMainChannels = [
     ['MarkRober.jpg', "Mark Rober"],
     ['AlanBecker.jpg', "Alan Becker"],
     ['Marvel.jpg', "Marvel Entertainment"],
@@ -545,6 +588,7 @@ Widget LoadSubs() {
     ['Muzik247.jpg', "Muzik247"],
     ['ParamountPictures.jpg', "Paramount Pictures"],
   ];
+  List<List<String>> Channels = MainChannels;
   final List<List<String>> Videos = [
     [
       'TransformersOne.jpg',
@@ -673,6 +717,22 @@ Widget LoadSubs() {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
+                  Container(
+                    margin: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 37, 37, 37),
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Text(
+                        "All",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ),
                   for (var data in recommonded)
                     Container(
                       margin: EdgeInsets.all(4),
