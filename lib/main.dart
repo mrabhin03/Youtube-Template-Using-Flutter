@@ -440,7 +440,7 @@ Widget PageController(Mode, context) {
     case 1:
       return LoadHome();
     case 2:
-      return LoadShorts(context);
+      return LoadShorts();
     case 3:
       return LoadSubs();
     case 4:
@@ -451,8 +451,8 @@ Widget PageController(Mode, context) {
 }
 
 Widget LoadHome() {
-  List<List<String>> Videos = HomeVideos;
   List<String> recommonded = Homerecommonded;
+  List<List<String>> Videos = HomeVideos;
 
   for (var data in Videos) {
     data[6] = dateClculation(data[5]);
@@ -609,20 +609,6 @@ Widget LoadHome() {
           ),
         ],
       ),
-    ),
-  );
-}
-
-Widget LoadShorts(context) {
-  return Expanded(
-    child: PageView.builder(
-      scrollDirection: Axis.vertical, // Vertical scroll
-      itemCount: Urls.length,
-      itemBuilder: (context, index) {
-        return ReelItem(
-          videoUrl: Urls[index],
-        );
-      },
     ),
   );
 }
@@ -970,10 +956,88 @@ String dateClculation(String targetDateString) {
   }
 }
 
+class LoadShorts extends StatefulWidget {
+  LoadShorts();
+
+  @override
+  _LoadShortsState createState() => _LoadShortsState();
+}
+
+class _LoadShortsState extends State<LoadShorts> {
+  final List<YoutubePlayerController> _controllers = [];
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    for (var url in Urls) {
+      final videoId = YoutubePlayer.convertUrlToId(url[0]);
+      if (videoId != null) {
+        final controller = YoutubePlayerController(
+          initialVideoId: videoId,
+          flags: YoutubePlayerFlags(
+            autoPlay: true,
+            mute: false,
+            loop: true,
+          ),
+        );
+        _controllers.add(controller);
+      } else {
+        print("Invalid URL: $url");
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    for (var controller in _controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: PageView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: 1000,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index % _controllers.length;
+          });
+          for (int i = 0; i < _controllers.length; i++) {
+            if (i == _currentIndex) {
+              Future.delayed(Duration(milliseconds: 500), () {
+                if (mounted) {
+                  _controllers[i].play();
+                }
+              });
+            } else {
+              _controllers[i].pause();
+            }
+          }
+        },
+        itemBuilder: (context, index) {
+          final videoIndex = index % _controllers.length;
+          return ReelItem(
+            videoUrl: Urls[videoIndex],
+            TheController: _controllers[videoIndex],
+          );
+        },
+      ),
+    );
+  }
+}
+
 class ReelItem extends StatefulWidget {
   final List<String> videoUrl;
+  final YoutubePlayerController TheController;
 
-  ReelItem({required this.videoUrl});
+  ReelItem({
+    required this.videoUrl,
+    required this.TheController,
+  });
 
   @override
   _ReelItemState createState() => _ReelItemState();
@@ -986,14 +1050,7 @@ class _ReelItemState extends State<ReelItem> {
   @override
   void initState() {
     super.initState();
-    _controller = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(widget.videoUrl[0])!,
-      flags: YoutubePlayerFlags(
-        autoPlay: true,
-        mute: false,
-        loop: true,
-      ),
-    );
+    _controller = widget.TheController;
 
     _controller.addListener(() {
       final position = _controller.value.position;
@@ -1005,23 +1062,22 @@ class _ReelItemState extends State<ReelItem> {
           _controller.seekTo(Duration.zero);
         }
         if (duration != null && duration.inSeconds > 0) {
-          setState(() {
-            currentProgress =
-                position.inSeconds.toDouble() / duration.inSeconds.toDouble();
-          });
+          double newProgress =
+              position.inSeconds.toDouble() / duration.inSeconds.toDouble();
+          if (newProgress != currentProgress && mounted) {
+            setState(() {
+              currentProgress = newProgress;
+            });
+          }
         }
       }
     });
   }
 
   @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  bool isPlaying = false;
 
   @override
-  bool isPlaying = false;
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black,
